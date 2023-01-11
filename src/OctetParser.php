@@ -4,7 +4,7 @@
 
 class OctetParser
 {
-    public function ReverseNumber($number)
+    private function ReverseNumber($number)
     {
         // Return the input number as is if it has 1 or fewer digits.
         if (strlen($number) <= 1) {
@@ -46,5 +46,10 @@ class OctetParser
 
         // Convert the hexadecimal string to a decimal number and return the result.
         return hexdec($hexString);
+    }
+
+    function ToFloat(string $octet): float {
+        $float_value = unpack("f", pack("H*", $octet))[1];
+        return $float_value;
     }
 }

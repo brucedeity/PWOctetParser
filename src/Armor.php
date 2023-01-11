@@ -23,7 +23,7 @@ class Armor extends OctetParser
         $this->octet = $octet;
     }
 
-    public function GetLevelRequirement()
+    private function GetLevelRequirement()
     {
         // Extract first four characters of octet
         $this->parsedOctet = substr($this->octet, 0, 4);
@@ -35,7 +35,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetClassRequirement()
+    private function GetClassRequirement()
     {
         // Extract next four characters of octet after level requirement
         $this->parsedOctet = substr($this->octet, 4, 4);
@@ -47,7 +47,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetStrengthRequirement()
+    private function GetStrengthRequirement()
     {
         // Extract next four characters of octet after class requirement
         $this->parsedOctet = substr($this->octet, 8, 4);
@@ -59,7 +59,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetConstitutionRequirement()
+    private function GetConstitutionRequirement()
     {
         // Extract next four characters of octet after strength requirement
         $this->parsedOctet = substr($this->octet, 12, 4);
@@ -71,7 +71,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetAgilityRequirement()
+    private function GetAgilityRequirement()
     {
         // Extract next four characters of octet after constitution requirement
         $this->parsedOctet = substr($this->octet, 16, 4);
@@ -83,7 +83,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetInteligenceRequirement()
+    private function GetInteligenceRequirement()
     {
         // Extract next four characters of octet after agility requirement
         $this->parsedOctet = substr($this->octet, 20, 4);
@@ -95,7 +95,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetDurability1()
+    private function GetDurability1()
     {
         // Extract next 8 characters of octet after intelligence requirement
         $this->parsedOctet = substr($this->octet, 24, 8);
@@ -107,7 +107,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetDurability2()
+    private function GetDurability2()
     {
         // Extract next 8 characters of octet after durability 1
         $this->parsedOctet = substr($this->octet, 32, 8);
@@ -119,7 +119,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetEquipmentType()
+    private function GetEquipmentType()
     {
         // Extract next 4 characters of octet after durability 2
         $this->parsedOctet = substr($this->octet, 40, 4);
@@ -131,7 +131,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetItemFlag()
+    private function GetItemFlag()
     {
         // Extract next 2 characters of octet after equipment type
         $this->parsedOctet = substr($this->octet, 44, 2);
@@ -143,7 +143,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetName()
+    private function GetName()
     {
         // Extract next 2 characters of octet after item flag
         $this->parsedOctet = substr($this->octet, 46, 2);
@@ -155,7 +155,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetPhysicalDefence()
+    private function GetPhysicalDefence()
     {
         // Extract next 8 characters of octet after name
         $this->parsedOctet = substr($this->octet, $this->pos, 8);
@@ -167,7 +167,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetSocketCount()
+    private function GetSocketCount()
     {
         // Extract next 8 characters of octet 72 characters after physical defence
         $this->parsedOctet = substr($this->octet, $this->pos + 72, 8);
@@ -180,7 +180,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetDodgeAmount()
+    private function GetDodgeAmount()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 8, 8);
 
@@ -189,7 +189,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetHealthAmount()
+    private function GetHealthAmount()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 24, 8);
 
@@ -198,7 +198,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetManaAmount()
+    private function GetManaAmount()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 16, 8);
 
@@ -207,7 +207,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetMetalDefence()
+    private function GetMetalDefence()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 32, 8);
 
@@ -216,7 +216,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetWoodDefence()
+    private function GetWoodDefence()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 40, 8);
 
@@ -225,7 +225,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetWaterDefence()
+    private function GetWaterDefence()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 48, 8);
 
@@ -234,7 +234,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetFireDefence()
+    private function GetFireDefence()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 56, 8);
 
@@ -243,7 +243,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetEarthDefence()
+    private function GetEarthDefence()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 64, 8);
 
@@ -252,7 +252,7 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function GetAddounCount()
+    private function GetAddounCount()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 80, 8);
 
@@ -261,12 +261,12 @@ class Armor extends OctetParser
         return $this;
     }
 
-    public function ShowValue()
+    private function ShowValue()
     {
         return $this->attributeValue;
     }
 
-    public function ShowOctet()
+    private function ShowOctet()
     {
         return $this->parsedOctet;
     }
@@ -367,6 +367,6 @@ class Armor extends OctetParser
     }
 }
 
-$Armour = new Armor('6300ff0f6700000067000000a67200003c73000024000000d3020000000000000000000050000000650400006504000065040000650400006504000004000d00f3180000f3180000f3180000f3180000080000007422000050000000b225000009000000bc250000090000000b470000ad0100000800000099a400003e00000099a400003e00000099a400003e00000099a400003e000000');
+$Armour = new Armor('6300ff0f6700000067000000b1530000fc53000024000000360100007e0000000000000050000000e0010000e0010000e0010000e0010000e001000004000d00f3180000f3180000f3180000f318000008000000742200005000000051210000020000009e2200007e0000000b470000ad0100000800000099a400003e00000099a400003e00000099a400003e00000099a400003e000000');
 
 echo $Armour->getAttributes();
