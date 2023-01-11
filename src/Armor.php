@@ -5,7 +5,7 @@
 // use ItemPattern;
 // use PWOctetReader\Item;
 
-require 'item.php';
+require 'OctetParser.php';
 
 class Armor extends OctetParser
 {
@@ -276,64 +276,92 @@ class Armor extends OctetParser
         $attributes = [
             'levelRequired' => [
                 'value' => $this->GetLevelRequirement()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetLevelRequirement()->parsedOctet
             ],
             'classRequired' => [
                 'value' => $this->GetClassRequirement()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetClassRequirement()->parsedOctet
             ],
             'strengthRequired' => [
                 'value' => $this->GetStrengthRequirement()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetStrengthRequirement()->parsedOctet
             ],
             'constitutionRequired' => [
                 'value' => $this->GetConstitutionRequirement()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetConstitutionRequirement()->parsedOctet
             ],
             'agilityRequired' => [
                 'value' => $this->GetAgilityRequirement()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetAgilityRequirement()->parsedOctet
             ],
             'intelligenceRequired' => [
                 'value' => $this->GetInteligenceRequirement()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetInteligenceRequirement()->parsedOctet
             ],
             'durability1' => [
                 'value' => $this->GetDurability1()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetDurability1()->parsedOctet
             ],
             'durability2' => [
                 'value' => $this->GetDurability2()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetDurability2()->parsedOctet
             ],
             'equipmentType' => [
                 'value' => $this->GetEquipmentType()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetEquipmentType()->parsedOctet
             ],
             'itemFlag' => [
                 'value' => $this->GetItemFlag()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetItemFlag()->parsedOctet
             ],
             'name' => [
                 'value' => $this->GetName()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetName()->parsedOctet
             ],
             'physicalDefence' => [
                 'value' => $this->GetPhysicalDefence()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetPhysicalDefence()->parsedOctet
+            ],
+            'dodge' => [
+                'value' => $this->GetDodgeAmount()->attributeValue,
+                'octet' => $this->GetDodgeAmount()->parsedOctet
+            ],
+            'health' => [
+                'value' => $this->GetHealthAmount()->attributeValue,
+                'octet' => $this->GetHealthAmount()->parsedOctet
+            ],
+            'mana' => [
+                'value' => $this->GetManaAmount()->attributeValue,
+                'octet' => $this->GetManaAmount()->parsedOctet
+            ],
+            'metalDefence' => [
+                'value' => $this->GetMetalDefence()->attributeValue,
+                'octet' => $this->GetMetalDefence()->parsedOctet
+            ],
+            'woodDefence' => [
+                'value' => $this->GetWoodDefence()->attributeValue,
+                'octet' => $this->GetWoodDefence()->parsedOctet
+            ],
+            'waterDefence' => [
+                'value' => $this->GetWaterDefence()->attributeValue,
+                'octet' => $this->GetWaterDefence()->parsedOctet
+            ],
+            'fireDefence' => [
+                'value' => $this->GetFireDefence()->attributeValue,
+                'octet' => $this->GetFireDefence()->parsedOctet
+            ],
+            'earthDefence' => [
+                'value' => $this->GetEarthDefence()->attributeValue,
+                'octet' => $this->GetEarthDefence()->parsedOctet
             ],
             'socketCount' => [
                 'value' => $this->GetSocketCount()->attributeValue,
-                'octet' => $this->parsedOctet
+                'octet' => $this->GetSocketCount()->parsedOctet
             ],
-            'magicDefence' => [
-                'value' => $this->GetMagicDefence()->attributeValue,
-                'octet' => $this->parsedOctet
+            'addounCount' => [
+                'value' => $this->GetAddounCount()->attributeValue,
+                'octet' => $this->GetAddounCount()->parsedOctet
             ],
-            'price' => [
-                'value' => $this->GetPrice()->attributeValue,
-                'octet' => $this->parsedOctet
-            ]
         ];
         return json_encode($attributes);
     }
