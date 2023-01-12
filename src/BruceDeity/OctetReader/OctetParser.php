@@ -1,6 +1,6 @@
 <?php
 
-// namespace PWOctetReader;
+namespace BruceDeity\OctetReader;
 
 class OctetParser
 {

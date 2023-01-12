@@ -1,12 +1,11 @@
 <?php
 
-// namespace PWOctetReader;
+namespace BruceDeity\OctetReader;
 
-// use PWOctetReader\Item;
+use BruceDeity\OctetReader\OctetParser;
+use BruceDeity\OctetReader\Interfaces\Item;
 
-require 'OctetParser.php';
-
-class Weapon extends OctetParser
+class Weapon extends OctetParser implements Item
 {
     private $octet;
     private $pos;
@@ -204,7 +203,7 @@ class Weapon extends OctetParser
         return $this;
     }
 
-    public function getAttributes()
+    public function getAttributes() : array
     {
         $attributes = [
             'levelRequired' => [
@@ -278,11 +277,7 @@ class Weapon extends OctetParser
             // add the rest of the attributes here
         ];
 
-        return json_encode($attributes);
+        return $attributes;
     }
 
 }
-
-$Armour = new Weapon('5a0040003b00000029010000e8550000f05500002c00000a42007200750063006500010000000d0000000d00000063210000030300000507000000000000000000001e0000000000a0410000b040020000000000000000000000040000001e450000de00000001000000a5210000020000008a25000019000000d04600008601000008000000');
-
-echo $Armour->getAttributes();

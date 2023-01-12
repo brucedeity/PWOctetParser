@@ -1,13 +1,11 @@
 <?php
 
-// namespace PWOctetReader;
+namespace BruceDeity\OctetReader;
 
-// use OctetParser;
-// use PWOctetReader\Item;
+use BruceDeity\OctetReader\OctetParser;
+use BruceDeity\OctetReader\Interfaces\Item;
 
-require 'OctetParser.php';
-
-class Jewelry extends OctetParser
+class Jewelry extends OctetParser implements Item
 {
     private $octet;
     private $pos;

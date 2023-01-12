@@ -1,13 +1,11 @@
 <?php
 
-// namespace PWOctetReader;
+namespace BruceDeity\OctetReader;
 
-// use ItemPattern;
-// use PWOctetReader\Item;
+use BruceDeity\OctetReader\OctetParser;
+use BruceDeity\OctetReader\Interfaces\Item;
 
-require 'OctetParser.php';
-
-class Armor extends OctetParser
+class Armor extends OctetParser implements Item
 {
     private $octet;
     private $pos;
@@ -363,10 +361,6 @@ class Armor extends OctetParser
                 'octet' => $this->GetAddounCount()->parsedOctet
             ],
         ];
-        return json_encode($attributes);
+        return $attributes;
     }
 }
-
-$Armour = new Armor('6300ff0f6700000067000000b1530000fc53000024000000360100007e0000000000000050000000e0010000e0010000e0010000e0010000e001000004000d00f3180000f3180000f3180000f318000008000000742200005000000051210000020000009e2200007e0000000b470000ad0100000800000099a400003e00000099a400003e00000099a400003e00000099a400003e000000');
-
-echo $Armour->getAttributes();
