@@ -1,75 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Octet Reader</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.0.0/dist/js/autoComplete.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.0.0/dist/css/autoComplete.min.css">
-  </head>
-  <body class="dark-mode">
-    <div class="container">
-      <h1 class="text-center">Octet Reader</h1>
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <form>
-            <div class="form-group">
-              <label for="octet">Octet</label>
-              <input type="text" class="form-control" id="octet" placeholder="Enter octet">
+    <head>
+        <title>Octet Reader</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    </head>
+
+    <body class="dark-mode">
+        <div class="container">
+            <h1 class="text-center">PW Item Octet Reader</h1>
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <form>
+                        <div class="form-group">
+                            <label for="octet">Octet</label>
+                            <input type="text" class="form-control" id="octet" placeholder="Enter octet" />
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select class="form-control" id="type">
+                                <option value="Weapon">Weapon</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="Jewelry">Jewelry</option>
+                                <option value="Armor">Armor</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-              <label for="type">Type</label>
-              <select class="form-control" id="type">
-                  <option value="Weapon">Weapon</option>
-                  <option value="Fashion">Fashion</option>
-                  <option value="Jewelry">Jewelry</option>
-                  <option value="Armor">Armor</option>
-              </select>
-          </div>          
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+            <br />
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <pre id="output"></pre>
+                </div>
+            </div>
         </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <pre id="output"></pre>
-        </div>
-      </div>
-    </div>
 
-    <script>
-      const types = ['Weapon', 'Fashion', 'Jewelry', 'Armor'];
-
-      document.querySelector("form").addEventListener("submit", function(event) {
-          event.preventDefault();
-          submitForm();
-      });
-      
-          function submitForm() {
-            var octet = $("#octet").val();
-            var type = $("#type").val();
-            $.ajax({
-                type: "POST",
-                url: "parse-octet.php",
-                data: { octet: octet, type: type },
-                success: function(result) {
-                    var json = JSON.parse(result);
-                    var output = "";
-                    for (var key in json) {
-                        var key_element = document.createElement("div");
-                        key_element.innerHTML = key + ": " + json[key].value;
-                        key_element.title = "octet: "+json[key].octet;
-                        document.getElementById("output").appendChild(key_element);
-                    }
-                }
+        <script>
+            const types = ["Weapon", "Fashion", "Jewelry", "Armor"];
+            let output = document.getElementById("output");
+            output.style.display = "none";
+            document.querySelector("form").addEventListener("submit", function (event) {
+                event.preventDefault();
+                submitForm();
             });
-          }
-</script>
 
-  
-
-  </body>
+            function submitForm() {
+                var octet = $("#octet").val();
+                var type = $("#type").val();
+                $.ajax({
+                    type: "POST",
+                    url: "parse-octet.php",
+                    data: {
+                        octet: octet,
+                        type: type,
+                    },
+                    success: function (result) {
+                        var json = JSON.parse(result);
+                        output.innerHTML = "";
+                        for (var key in json) {
+                            var key_element = document.createElement("div");
+                            key_element.innerHTML = key + ": " + json[key].value;
+                            key_element.title = "octet: " + json[key].octet;
+                            output.appendChild(key_element);
+                        }
+                        output.style.display = "block";
+                    },
+                });
+            }
+        </script>
+    </body>
 </html>
-

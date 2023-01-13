@@ -1,131 +1,145 @@
 pre {
     background-color: #1c1c1c;
-    color: white;
+    /* color: white; */
     padding: 1em;
     overflow: scroll;
-border-radius: 0.5em;
-white-space: pre-wrap;
-word-break: break-all;
+    border-radius: 0.5em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    display: none;
+}
+
+#output {
+    color: #ffd452;
 }
 
 pre span {
-cursor: pointer;
+    cursor: pointer;
 }
 
 pre span:hover {
-background-color: #3d3d3d;
-padding: 0.1em 0.5em;
-border-radius: 0.3em;
+    background-color: #3d3d3d;
+    padding: 0.1em 0.5em;
+    border-radius: 0.3em;
 }
 
+/* default light mode */
 body {
-background-color: #1c1c1c;
-color: white;
+    background-color: #fff;
+    color: black;
+}
+
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
 }
 
 .container {
-padding-top: 3em;
+    padding-top: 3em;
 }
 
 form {
-background-color: #3d3d3d;
-padding: 1em;
-border-radius: 0.5em;
+    background-color: #3d3d3d;
+    padding: 1em;
+    border-radius: 0.5em;
 }
 
 form label {
-color: white;
+    color: white;
 }
 
 form input {
-background-color: #1c1c1c;
-color: white;
-border: none;
-border-radius: 0.3em;
-padding: 0.5em;
+    background-color: #1c1c1c;
+    color: white;
+    border: none;
+    border-radius: 0.3em;
+    padding: 0.5em;
 }
 
 form input:focus {
-outline: none;
+    outline: none;
 }
 
 button[type="submit"] {
-background-color: #1e90ff;
-color: white;
-border: none;
-border-radius: 0.3em;
-padding: 0.5em 1em;
-margin-top: 1em;
-transition: background-color 0.3s ease;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 0.3em;
+    padding: 0.5em 1em;
+    margin-top: 1em;
+    transition: background-color 0.3s ease;
 }
 
 button[type="submit"]:hover {
-background-color: #00008b;
-cursor: pointer;
+    background-color: #00008b;
+    cursor: pointer;
 }
 
 select {
-background-color: #1c1c1c;
-color: white;
-border: none;
-border-radius: 0.3em;
-padding: 0.5em;
+    background-color: #1c1c1c;
+    color: white;
+    border: none;
+    border-radius: 0.3em;
+    padding: 0.5em;
 }
 
 select:focus {
-outline: none;
+    outline: none;
 }
 
 select option {
-background-color: #3d3d3d;
+    background-color: #3d3d3d;
 }
 
 select option:hover {
-background-color: #1e90ff;
+    background-color: #1e90ff;
 }
 
 select option:active {
-background-color: #00008b;
+    background-color: #00008b;
 }
 
 .text-center {
-text-align: center;
+    text-align: center;
 }
 
 .text-center h1 {
-margin-bottom: 2em;
+    margin-bottom: 2em;
 }
 
 .row {
-margin-bottom: 2em;
+    margin-bottom: 2em;
 }
 
 .col-md-6 {
-margin: auto;
+    margin: auto;
 }
 
 .col-md-6 pre {
-max-height: 50vh;
+    max-height: 50vh;
 }
 
 .col-md-6 pre::-webkit-scrollbar {
-width: 0.4em;
-background-color: #3d3d3d;
+    width: 0.4em;
+    background-color: #3d3d3d;
 }
 
 .col-md-6 pre::-webkit-scrollbar-thumb {
-background-color: #1e90ff;
-border-radius: 10px;
+    background-color: #1e90ff;
+    border-radius: 10px;
 }
 
 .col-md-6 pre::-webkit-scrollbar-thumb:hover {
-background-color: #00008b;
+    background-color: #00008b;
 }
 
 .col-md-6 pre::-webkit-scrollbar-thumb:active {
-background-color: #00008b;
+    background-color: #00008b;
 }
 
 .col-md-6 pre::-webkit-scrollbar-thumb:vertical {
-min-height:20px;
+    min-height: 20px;
 }
