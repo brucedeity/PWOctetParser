@@ -167,7 +167,7 @@ class Jewelry extends OctetParser implements Item
     return $this;
     }
 
-    public function GetAttributes()
+    public function GetAttributes() : array
     {
         $attributes = [
             'levelRequired' => [
@@ -234,90 +234,6 @@ class Jewelry extends OctetParser implements Item
             ],
         ];
 
-        return json_encode($attributes);
+        return $attributes;
     }
 }
-
-$Jewelry = new Jewelry('5f00ff0f0000000000000000ba5e0000b45f00002400000061000000000000000000000000000000c8000000c8000000c8000000c8000000c80000000000000004000000662100000300000087210000320000007c210000c800000034470000d401000008000000');
-
-echo $Jewelry->getAttributes();
-
-// $octet = '5500ff0f0000000000000000a6590000d85900002400000018000000000000006f0100000000000000000000000000000000000000000000000000000000000004000000a5250000070000005c23000018000000032400006400000033470000ad01000008000000';
-// $data = octetToArray($octet);
-
-// echo json_encode($data);
-
-// function octetToArray(string $octet): array
-// {
-//     $level_req = parent::ToDecimal(substr($octet, 0, 4), 4, 0, true);
-//     $class_req = parent::ToDecimal(substr($octet, 4, 4), 4, 0, true);
-//     $strength_req = parent::ToDecimal(substr($octet, 8, 4), 4, 0, true);
-//     $constitution_req = parent::ToDecimal(substr($octet, 12, 4), 4, 0, true);
-//     $agility_req = parent::ToDecimal(substr($octet, 16, 4), 4, 0, true);
-//     $intelligence_req = parent::ToDecimal(substr($octet, 20, 4), 4, 0, true);
-//     $durability1 = intval(parent::ToDecimal(substr($octet, 24, 8), 8, 0, true) / 100);
-//     $durability2 = intval(parent::ToDecimal(substr($octet, 32, 8), 8, 0, true) / 100);
-//     $equipment_type = parent::ToDecimal(substr($octet, 40, 4), 4, 0, true);
-//     $item_flag = parent::ToDecimal(substr($octet, 44, 2), 2, 0, true);
-//     $name_length = intdiv(parent::ToDecimal(substr($octet, 46, 2), 2, 0, true), 2);
-//     $name = '';
-//     $pos = 48;
-//     for ($i = 0; $i < $name_length; $i++) {
-//         $str = substr($octet, $pos + $i * 4, 4);
-//         $n = parent::ToDecimal(substr($str, 0, 2), 2, 0, true);
-//         $name .= chr($n);
-//         $pos = 48 + $i * 4 + 4;
-//     }
-//     $physical_attack = parent::ToDecimal(substr($octet, $pos, 8), 8, 0, true);
-//     $magical_attack = parent::ToDecimal(substr($octet, $pos + 8, 8), 8, 0, true);
-//     $physical_defense = parent::ToDecimal(substr($octet, $pos + 16, 8), 8, 0, true);
-//     $dodge = parent::ToDecimal(substr($octet, $pos + 24, 8), 8, 0, true);
-// $metal = parent::ToDecimal(substr($octet, $pos + 32, 8), 8, 0, true);
-// $wood = parent::ToDecimal(substr($octet, $pos + 40, 8), 8, 0, true);
-// $water = parent::ToDecimal(substr($octet, $pos + 48, 8), 8, 0, true);
-// $fire = parent::ToDecimal(substr($octet, $pos + 56, 8), 8, 0, true);
-// $earth = parent::ToDecimal(substr($octet, $pos + 64, 8), 8, 0, true);
-
-// $socket_count = parent::ToDecimal(substr($octet, $pos + 72, 8), 8, 0, true);
-
-// // if ($socket_count > 0){
-// // $sockets_state = array();
-// // for ($i = 1; $i <= $socket_count; $i++){
-// // $sockets_state[$i] = parent::ToDecimal(substr($octet, $pos + 72 + ($i * 8), 8), 8, 0, true);
-// // }
-// // }
-// $pos = $pos + 72 + ($socket_count * 8);
-
-// $add_on_count = parent::ToDecimal(substr($octet, $pos + 80, 8), 8, 0, true);
-
-// // continue from here with the rest of the variables according to the javascript code
-// // and add the new variables like socket_count and sockets_state
-
-// $data = array(
-// 'level_req' => $level_req,
-// 'class_req' => $class_req,
-// 'strength_req' => $strength_req,
-// 'constitution_req' => $constitution_req,
-// 'agility_req' => $agility_req,
-// 'intelligence_req' => $intelligence_req,
-// 'durability1' => $durability1,
-// 'durability2' => $durability2,
-// 'equipment_type' => $equipment_type,
-// 'item_flag' => $item_flag,
-// 'name' => $name,
-// 'physical_attack' => $physical_attack,
-// 'magical_attack' => $magical_attack,
-// 'physical_defense' => $physical_defense,
-// 'dodge' => $dodge,
-// 'metal' => $metal,
-// 'wood' => $wood,
-// 'water' => $water,
-// 'fire' => $fire,
-// 'earth' => $earth,
-// 'socket_count' => $socket_count,
-// // 'sockets_state' => $sockets_state,
-// 'add_on_count' => $add_on_count
-// );
-
-// return $data;
-// }

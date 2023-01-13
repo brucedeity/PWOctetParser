@@ -58,6 +58,8 @@
                         type: type,
                     },
                     success: function (result) {
+                        console.log(result);
+
                         var json = JSON.parse(result);
                         output.innerHTML = "";
                         for (var key in json) {

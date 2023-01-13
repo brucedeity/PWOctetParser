@@ -269,7 +269,7 @@ class Armor extends OctetParser implements Item
         return $this->parsedOctet;
     }
 
-    public function getAttributes()
+    public function GetAttributes() : array
     {
         $attributes = [
             'levelRequired' => [
@@ -361,6 +361,7 @@ class Armor extends OctetParser implements Item
                 'octet' => $this->GetAddounCount()->parsedOctet
             ],
         ];
+
         return $attributes;
     }
 }

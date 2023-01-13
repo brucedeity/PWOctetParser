@@ -57,7 +57,6 @@ class Weapon extends OctetParser implements Item
         $this->attributeValue = parent::ToDecimal($this->parsedOctet, 4, 0, true);
         return $this;
     }
-    // Add the other methods
     public function GetStrengthRequirement()
     {
         $this->parsedOctet = substr($this->octet, 8, 4);
@@ -133,25 +132,25 @@ class Weapon extends OctetParser implements Item
         $this->attributeValue = parent::ToDecimal($this->parsedOctet, 8, 0, true);
         return $this;
     }
-    public function GetPhysicalMinDamage()
+    public function GetMinPhysicalDamage()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 32, 8);
         $this->attributeValue = intval(parent::ToDecimal($this->parsedOctet, 8, 0, true));
         return $this;
     }
-    public function GetPhysicalMaxDamage()
+    public function GetMaxPhysicalDamage()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 40, 8);
         $this->attributeValue = intval(parent::ToDecimal($this->parsedOctet, 8, 0, true));
         return $this;
     }
-    public function GetMagicMinDamage()
+    public function GetMinMagicDamage()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 48, 8);
         $this->attributeValue = intval(parent::ToDecimal($this->parsedOctet, 8, 0, true));
         return $this;
     }
-    public function GetMagicMaxDamage()
+    public function GetMaxMagicDamage()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 56, 8);
         $this->attributeValue = intval(parent::ToDecimal($this->parsedOctet, 8, 0, true));
@@ -242,6 +241,22 @@ class Weapon extends OctetParser implements Item
                 'value' => $this->GetItemType()->attributeValue,
                 'octet' => $this->GetItemType()->parsedOctet
             ],
+            'minPhysicalDamage' => [
+                'value' => $this->GetMinPhysicalDamage()->attributeValue,
+                'octet' => $this->GetMinPhysicalDamage()->parsedOctet
+            ],
+            'maxPhysicalDamage' => [
+                'value' => $this->GetMaxPhysicalDamage()->attributeValue,
+                'octet' => $this->GetMaxPhysicalDamage()->parsedOctet
+            ],
+            'minMagicDamage' => [
+                'value' => $this->GetMinMagicDamage()->attributeValue,
+                'octet' => $this->GetMinMagicDamage()->parsedOctet
+            ],
+            'maxMagicDamage' => [
+                'value' => $this->GetMaxMagicDamage()->attributeValue,
+                'octet' => $this->GetMaxMagicDamage()->parsedOctet
+            ],
             'name' => [
                 'value' => $this->GetName()->attributeValue,
                 'octet' => $this->GetName()->parsedOctet
@@ -274,7 +289,6 @@ class Weapon extends OctetParser implements Item
                 'value' => $this->GetSocketsCount()->attributeValue,
                 'octet' => $this->GetSocketsCount()->parsedOctet
             ],
-            // add the rest of the attributes here
         ];
 
         return $attributes;
