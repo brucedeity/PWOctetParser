@@ -180,15 +180,40 @@ class Weapon extends OctetParser implements Item
 
     public function GetSocketsCount()
     {
+        // $this->parsedOctet = $this->pos;
         $this->parsedOctet = substr($this->octet, $this->pos + 88, 8);
-        $this->attributeValue = parent::ToDecimal($this->parsedOctet, 8, 0, true);
+        // $this->parsedOctet = substr($this->octet, $this->pos + 88, 8);
+
+        $count = parent::ToDecimal($this->parsedOctet, 8, 0, true);
+
+        // Limit max sockets to 4 so it don't give a invalid socket amount if a invalid octet is passed
+        $this->attributeValue = $count <= 4 ? $count : 0;
+        $this->attributeValue = 2;
 
         return $this;
     }
 
-    public function GetAddonsCount()
+    public function GetSockets()
     {
-        $this->parsedOctet = substr($this->octet, $this->pos + 112, 8);
+        $socketsCount = $this->GetSocketsCount()->attributeValue;
+        if ($socketsCount > 0) {
+
+            $socketsData = [];
+
+            for ($i = 1; $i <= $socketsCount; $i++) {
+                $socketsData[$i] = parent::ToDecimal(substr($this->octet, $this->pos + 88 + $i * 8, 8), 8, 0, true);
+            }
+
+            $this->attributeValue = $socketsData;
+        }
+        $this->pos = $this->pos + $socketsCount * 8;
+
+        return $this;
+    }
+
+    public function GetAddonCount()
+    {
+        $this->parsedOctet = substr($this->octet, $this->pos + 96, 8);
         $this->attributeValue = parent::ToDecimal($this->parsedOctet, 8, 0, true);
 
         return $this;
@@ -197,12 +222,137 @@ class Weapon extends OctetParser implements Item
     public function GetAddons()
     {
         $this->parsedOctet = substr($this->octet, $this->pos + 120, 16);
-        $this->attributeValue = parent::ToDecimal($this->parsedOctet, 16, 0, true);
+
+        $addonsCount = parent::ToDecimal($this->parsedOctet, 16, 0, true);
+
+        if ($addonsCount > 0) {
+            $shift = 0;
+
+            for ($i=0; $i < $addonsCount; $i++) {
+                $hex = parent::ReverseNumber(substr($this->octet, $this->pos + 104 + $i * 16 + $shift, 8));
+                $hex = ltrim($hex, '0');
+                $hex = trim($hex);
+
+                // Break out of the loop if $hex is not valid
+                // if (!strlen($hex) % 2 == 0)
+                //     continue;
+
+
+                // Get addon type, 2 = normal addon, 4 = special or refine, 'a' = is a socket addon
+                $type = substr($hex, 0, 1);
+
+                switch ($type) {
+                    case 4:
+                        $hexDec = $this->ToDecimal($hex, 8, $type, false);
+
+                        $shift += 8;
+                        break;
+        
+                    case 'a':
+        
+                        break;
+        
+                    default:
+                        // Normal addon
+        
+                        // TODO: check the other ocasions with ifs, see the js code
+        
+                        $addonType = parent::ReverseNumber($hex);
+
+                        $addonId = parent::ToDecimal($hex, 8, $type, false);
+
+                        $addonValue = parent::ToDecimal(substr($this->octet, $this->pos + 104 + $i * 16 + $shift + 8, 8), 8, 0, true);
+                        // $addonValue = substr($this->octet, $this->pos + 104 + $i * 16 + $shift + 8, 8);
+                        // $addonValue = $this->ToDecimal($hex, 8, $type, false);
+                        break;
+                }
+
+                // switch ($type) {
+                //     case 4:
+                //         $hexDec = parent::ToDecimal($hex, 8, $type, false);
+
+
+
+
+                //         break;
+                    
+                //     default:
+                //         # code...
+                //         break;
+                // }
+
+                $this->attributeValue = [
+                    $addonId => $addonValue
+                ];
+
+                break;
+            }
+        }
+
+        // $this->attributeValue = $addonsCount;
 
         return $this;
     }
 
-    public function getAttributes() : array
+    public function ShowValue()
+    {
+        return $this->attributeValue;
+    }
+
+    public function ShowOctet()
+    {
+        return $this->parsedOctet;
+    }
+
+    public function GetRefineLv()
+    {
+        //     $RefLv = 0;
+
+        //     $AddonC = parent::ToDecimal(substr($this->octet, $this->pos + 96, 8), 8, 0, true);
+        //     if ($AddonC > 0) {
+        //         $AHex = NULL;
+        //         $tmp = NULL;
+        //         $shift = 0;
+        //         $AddInd = 0;
+        //         $SckInd = 0;
+        //         $aType = NULL;
+        //         $bAddon = NULL;
+        //         $vAddon = NULL;
+        //         for ($i = 0; $i < $AddonC; $i++) {
+        //             $AHex = parent::ReverseNumber(substr($this->octet, $this->pos + 104 + $i * 16 + $shift, 8));
+        //             $AHex = str_replace("^0+", "", trim($AHex));
+        //             if (strlen($AHex) % 2 == 0) {
+        //                 $aType = substr($AHex, 0, 1);
+        //                 if ($aType == "4") {
+        //                     $tmp = parent::ToDecimal($AHex, 8, $aType, false);
+        //                     if (($tmp > 1691) && ($tmp < 1892)) {
+        //                         $RefLv = parent::ToDecimal(substr($this->octet, $this->pos + 104 + $i * 16 + $shift + 16, 8), 8, 0, true);
+        //                     } else {
+        //                         $AddonId = parent::ToDecimal($AHex, 8, $aType, false);
+        //                         if (parent::IsRune($AddonId) !== false) {
+        //                             $AddInd++;
+        //                             $Addons[$AddInd] = parent::SearchRuneNameValue(1, $AddonId, parent::ToDecimal(substr($this->octet, $this->pos + 104 + $i * 16 + $shift + 8, 8), 8, 0, true) + " " + parent::ToDecimal(substr($this->octet, $this->pos + 104 + $i * 16 + $shift + 16, 8), 8, 0, true));
+        //                         } else {
+        //                             $AddInd++;
+        //                             $Addons[$AddInd] = parent::SearchAddonNameValue(1, $AddonId, parent::ToDecimal(substr($this->octet, $this->pos + 104 + $i * 16 + $shift + 8, 8), 8, 0, true) + " " + parent::ToDecimal(substr($this->octet, $this->pos + 104 + $i * 16 + $shift + 16, 8), 8, 0, true));
+        //                         }
+        //                     }
+        //                     $shift = $shift + 8;
+        //                 } else {
+        //                     if
+        //                 ($aType == "3" || $aType == "2") {
+        //                     $SckInd++;
+        //                     $Sockets[$SckInd] = parent::SearchSocketNameValue(2, parent::ToDecimal($AHex, 8, $aType, false), $SocketSt[$SckInd]);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+        return $this;
+    }
+
+    public function GetAttributes() : array
     {
         $attributes = [
             'levelRequired' => [
@@ -277,18 +427,25 @@ class Weapon extends OctetParser implements Item
                 'value' => $this->GetMinEffectiveRange()->attributeValue,
                 'octet' => $this->GetMinEffectiveRange()->parsedOctet
             ],
-            'addonsCount' => [
-                'value' => $this->GetAddonsCount()->attributeValue,
-                'octet' => $this->GetAddonsCount()->parsedOctet
+            'sockets' => [
+                'count' => [
+                    'value' => $this->GetSocketsCount()->attributeValue,
+                    'octet' => $this->GetSocketsCount()->parsedOctet
+                ],
+                'stones' => $this->GetSockets()->attributeValue
             ],
             'addons' => [
-                'value' => $this->GetAddons()->attributeValue,
-                'octet' => $this->GetAddons()->parsedOctet
+                'count' => [
+                    'value' => $this->GetAddonCount()->attributeValue,
+                    'octet' => $this->GetAddonCount()->parsedOctet
+                ],
+                'data' => $this->GetAddons()->attributeValue,
             ],
-            'socketsCount' => [
-                'value' => $this->GetSocketsCount()->attributeValue,
-                'octet' => $this->GetSocketsCount()->parsedOctet
-            ],
+
+            'refineLevel' => [
+                'value' => $this->GetRefineLv()->attributeValue,
+                'octet' => $this->GetRefineLv()->parsedOctet
+            ]
         ];
 
         return $attributes;
